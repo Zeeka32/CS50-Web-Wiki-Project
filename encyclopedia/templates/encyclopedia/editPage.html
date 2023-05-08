@@ -1,0 +1,31 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Page Content</h1>
+    <br>
+    <form action="{% url 'encyclopedia:edit' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+        </div>
+        <input type="hidden" name="title" value="{{title}}">
+        <br>
+        <div class="form-group">
+          <label for="pageContent">Page Content</label>
+          <textarea class="form-control" id="pageContent" rows="3" name="content">{{content}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Edit Page</button>
+    </form>
+    <br>
+    <p>Note: This website uses Markdown language for its pages, to find more info on Markdown check <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">this link</a></p>
+
+    {% if error == "emptyField" %}
+    <div class="alert alert-danger" role="alert">
+        <h2> page content cannot be left empty. </h2>
+    </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "encyclopedia/layout.html" %}
+{%block title%}
+    {{title}}
+{% endblock %}
+
+{%block body%}
+    {{page | safe}}
+    
+    <br><br>
+    <form action="{% url 'encyclopedia:renderEdit' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="title" value="{{title}}">
+        <input type="submit" class="link-button" value="Edit Page Content"/>
+    </form>
+{%endblock%}

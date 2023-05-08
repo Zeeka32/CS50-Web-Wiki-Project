@@ -1,0 +1,36 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <h1>Create Page</h1>
+    <br>
+    <form action="{% url 'encyclopedia:create' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="pageTitle">Page Title</label>
+          <input type="text" class="form-control" id="pageTitle" placeholder="title of the page you want to create.." name="title" value="{{title}}">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="pageContent">Page Content</label>
+          <textarea class="form-control" id="pageContent" rows="3" name="content">{{content}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Page</button>
+    </form>
+    <br>
+    <p>Note: This website uses Markdown language for its pages, to find more info on Markdown check <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">this link</a></p>
+
+    {% if error == "entryExists" %}
+    <div class="alert alert-danger" role="alert">
+        <h2> A page with this title already exists.. </h2>
+    </div>
+    {% elif error == "emptyField" %}
+    <div class="alert alert-danger" role="alert">
+      <h2> Title and content need to have text in them.. </h2>
+    </div>
+    {% endif %}
+
+{% endblock %}
